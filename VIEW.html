@@ -1,0 +1,465 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ViewVinder Booth</title>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Poppins', sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+            overflow-x: hidden;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+
+        /* Header */
+        .header {
+            background: rgba(255, 255, 255, 0.95);
+            backdrop-filter: blur(10px);
+            border-radius: 20px;
+            padding: 20px;
+            margin-bottom: 30px;
+            box-shadow: 0 20px 40px rgba(0,0,0,0.1);
+            text-align: center;
+        }
+
+        .logo {
+            font-size: 2.5rem;
+            font-weight: 700;
+            background: linear-gradient(45deg, #667eea, #764ba2);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            margin-bottom: 10px;
+        }
+
+        .tagline {
+            color: #666;
+            font-weight: 300;
+        }
+
+        /* Auth Container */
+        .auth-container {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 30px;
+            margin-bottom: 40px;
+        }
+
+        .auth-card {
+            background: rgba(255, 255, 255, 0.95);
+            backdrop-filter: blur(20px);
+            border-radius: 25px;
+            padding: 40px;
+            box-shadow: 0 25px 50px rgba(0,0,0,0.15);
+            transition: all 0.3s ease;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .auth-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 5px;
+            background: linear-gradient(90deg, #667eea, #764ba2);
+        }
+
+        .auth-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 35px 70px rgba(0,0,0,0.2);
+        }
+
+        .auth-card h2 {
+            font-size: 1.8rem;
+            margin-bottom: 30px;
+            color: #333;
+            text-align: center;
+        }
+
+        /* Form Styles */
+        .form-group {
+            margin-bottom: 25px;
+            position: relative;
+        }
+
+        .form-group input, .form-group select {
+            width: 100%;
+            padding: 15px 20px;
+            border: 2px solid #e1e5e9;
+            border-radius: 12px;
+            font-size: 16px;
+            transition: all 0.3s ease;
+            background: rgba(255,255,255,0.8);
+        }
+
+        .form-group input:focus, .form-group select:focus {
+            outline: none;
+            border-color: #667eea;
+            box-shadow: 0 0 0 3px rgba(102, 126, 234, 0.1);
+            transform: translateY(-2px);
+        }
+
+        .form-group label {
+            display: block;
+            margin-bottom: 8px;
+            font-weight: 500;
+            color: #555;
+        }
+
+        /* Buttons */
+        .btn {
+            width: 100%;
+            padding: 15px;
+            border: none;
+            border-radius: 12px;
+            font-size: 16px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .btn-primary {
+            background: linear-gradient(45deg, #667eea, #764ba2);
+            color: white;
+        }
+
+        .btn-primary:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 15px 30px rgba(102, 126, 234, 0.4);
+        }
+
+        .btn-success {
+            background: linear-gradient(45deg, #56ab2f, #a8e6cf);
+            color: white;
+        }
+
+        .btn-success:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 15px 30px rgba(86, 171, 47, 0.4);
+        }
+
+        .btn-whatsapp {
+            background: #25D366;
+            color: white;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 10px;
+            font-weight: 600;
+        }
+
+        /* Payment Section */
+        .payment-section {
+            background: rgba(255, 255, 255, 0.95);
+            backdrop-filter: blur(20px);
+            border-radius: 25px;
+            padding: 40px;
+            box-shadow: 0 25px 50px rgba(0,0,0,0.15);
+            text-align: center;
+        }
+
+        .qris-container {
+            background: #f8f9fa;
+            border: 2px dashed #667eea;
+            border-radius: 15px;
+            padding: 30px;
+            margin: 20px 0;
+            position: relative;
+        }
+
+        .qris-placeholder {
+            font-size: 4rem;
+            color: #667eea;
+            margin-bottom: 20px;
+        }
+
+        .price {
+            font-size: 2.5rem;
+            font-weight: 700;
+            background: linear-gradient(45deg, #56ab2f, #a8e6cf);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            margin: 20px 0;
+        }
+
+        /* Responsive */
+        @media (max-width: 768px) {
+            .auth-container {
+                grid-template-columns: 1fr;
+                gap: 20px;
+            }
+            
+            .container {
+                padding: 10px;
+            }
+            
+            .auth-card {
+                padding: 30px 20px;
+            }
+        }
+
+        /* Animations */
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .auth-card {
+            animation: fadeInUp 0.6s ease forwards;
+        }
+
+        .auth-card:nth-child(2) {
+            animation-delay: 0.2s;
+        }
+
+        /* Success Modal */
+        .modal {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0,0,0,0.8);
+            z-index: 1000;
+            backdrop-filter: blur(10px);
+        }
+
+        .modal-content {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            background: white;
+            padding: 40px;
+            border-radius: 25px;
+            text-align: center;
+            max-width: 500px;
+            width: 90%;
+            box-shadow: 0 30px 60px rgba(0,0,0,0.3);
+        }
+
+        .success-icon {
+            font-size: 4rem;
+            color: #56ab2f;
+            margin-bottom: 20px;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <!-- Header -->
+        <div class="header">
+            <div class="logo">
+                <i class="fas fa-camera-retro"></i> Zul Ilmi Crew Studio
+            </div>
+            <p class="tagline">Tangkap Momen Istimewa Anda dengan Kualitas Profesional</p>
+        </div>
+
+        <!-- Auth Section -->
+        <div class="auth-container">
+            <!-- Login Form -->
+            <div class="auth-card" id="loginCard">
+                <h2><i class="fas fa-sign-in-alt"></i> Login</h2>
+                <form id="loginForm">
+                    <div class="form-group">
+                        <label>Nomor WhatsApp</label>
+                        <input type="tel" id="loginPhone" placeholder="08xxxxxxxxx" required>
+                    </div>
+                    <button type="submit" class="btn btn-primary">
+                        <i class="fas fa-sign-in-alt"></i> Masuk
+                    </button>
+                    <div style="text-align: center; margin-top: 20px;">
+                        <p>Belum punya akun? <a href="#" onclick="showRegister()" style="color: #667eea; font-weight: 500;">Daftar sekarang</a></p>
+                    </div>
+                </form>
+            </div>
+
+            <!-- Register Form -->
+            <div class="auth-card" id="registerCard" style="display: none;">
+                <h2><i class="fas fa-user-plus"></i> Daftar Baru</h2>
+                <form id="registerForm">
+                    <div class="form-group">
+                        <label>Nama Lengkap</label>
+                        <input type="text" id="regName" placeholder="John Doe" required>
+                    </div>
+                    <div class="form-group">
+                        <label>Nomor WhatsApp</label>
+                        <input type="tel" id="regPhone" placeholder="08xxxxxxxxx" required>
+                    </div>
+                    <div class="form-group">
+                        <label>Email (Opsional)</label>
+                        <input type="email" id="regEmail" placeholder="john@example.com">
+                    </div>
+                    <button type="submit" class="btn btn-success">
+                        <i class="fab fa-whatsapp"></i> Daftar via WhatsApp
+                    </button>
+                </form>
+            </div>
+        </div>
+
+        <!-- Payment Section (Hidden by default) -->
+        <div class="payment-section" id="paymentSection" style="display: none;">
+            <h2 style="margin-bottom: 20px; color: #333;">
+                <i class="fas fa-credit-card"></i> Pilih Metode Pembayaran
+            </h2>
+            <div class="price">Rp 50.000</div>
+            
+            <div class="qris-container">
+                <div class="qris-placeholder">
+                    <i class="fas fa-qrcode"></i>
+                </div>
+                <p><strong>QRIS Photo Booth Pro</strong></p>
+                <p>Scan QR Code atau transfer ke:</p>
+                <p style="font-size: 1.2rem; font-weight: 600; color: #333;">Bank BCA 1234-5678-90</p>
+            </div>
+
+            <div style="display: flex; gap: 15px; margin-top: 20px;">
+                <button class="btn btn-success" onclick="confirmPayment('qris')">
+                    <i class="fas fa-qrcode"></i> Bayar QRIS
+                </button>
+                <button class="btn btn-primary" onclick="confirmPayment('cash')">
+                    <i class="fas fa-money-bill-wave"></i> Bayar Cash
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Success Modal -->
+    <div class="modal" id="successModal">
+        <div class="modal-content">
+            <div class="success-icon">
+                <i class="fas fa-check-circle"></i>
+            </div>
+            <h2>Pembayaran Berhasil!</h2>
+            <p>Silakan tunggu petugas kami untuk memulai sesi photo booth.</p>
+            <p style="font-size: 1.1rem; font-weight: 600; color: #56ab2f;">
+                Nomor antrian Anda: <span id="queueNumber"></span>
+            </p>
+            <button class="btn btn-success" onclick="closeModal()" style="margin-top: 30px;">
+                <i class="fas fa-home"></i> Kembali ke Home
+            </button>
+        </div>
+    </div>
+
+    <script>
+        // Simple data storage (in production, use database)
+        let users = JSON.parse(localStorage.getItem('photobooth_users')) || [];
+        let currentUser = null;
+
+        // Register Form
+        document.getElementById('registerForm').addEventListener('submit', function(e) {
+            e.preventDefault();
+            
+            const name = document.getElementById('regName').value;
+            const phone = document.getElementById('regPhone').value;
+            const email = document.getElementById('regEmail').value;
+
+            // Validate phone number
+            if (!phone.match(/^08[0-9]{8,12}$/)) {
+                alert('Format nomor WhatsApp tidak valid. Gunakan 08xxxxxxxxx');
+                return;
+            }
+
+            // Check if user exists
+            if (users.find(u => u.phone === phone)) {
+                alert('Nomor WhatsApp sudah terdaftar!');
+                return;
+            }
+
+            // Save user
+            const user = { name, phone, email, createdAt: new Date().toISOString() };
+            users.push(user);
+            localStorage.setItem('photobooth_users', JSON.stringify(users));
+
+            // Open WhatsApp
+            const message = `Halo Photo Booth Pro! Saya ingin mendaftar:\n\nNama: ${name}\nWhatsApp: ${phone}\nEmail: ${email || 'Tidak diisi'}`;
+            window.open(`https://wa.me/6281234567890?text=${encodeURIComponent(message)}`, '_blank');
+
+            alert('Pendaftaran berhasil! Silakan konfirmasi via WhatsApp.');
+            showLogin();
+        });
+
+        // Login Form
+        document.getElementById('loginForm').addEventListener('submit', function(e) {
+            e.preventDefault();
+            
+            const phone = document.getElementById('loginPhone').value;
+            const user = users.find(u => u.phone === phone);
+
+            if (user) {
+                currentUser = user;
+                document.getElementById('loginCard').style.display = 'none';
+                document.getElementById('paymentSection').style.display = 'block';
+                window.scrollTo({ top: 0, behavior: 'smooth' });
+            } else {
+                alert('Nomor WhatsApp belum terdaftar. Silakan daftar terlebih dahulu!');
+                showRegister();
+            }
+        });
+
+        // Show Register
+        function showRegister() {
+            document.getElementById('loginCard').style.display = 'none';
+            document.getElementById('registerCard').style.display = 'block';
+        }
+
+        // Show Login
+        function showLogin() {
+            document.getElementById('registerCard').style.display = 'none';
+            document.getElementById('loginCard').style.display = 'block';
+            document.getElementById('loginPhone').value = '';
+        }
+
+        // Confirm Payment
+        function confirmPayment(method) {
+            const queueNumber = Math.floor(Math.random() * 900 + 100);
+            document.getElementById('queueNumber').textContent = queueNumber;
+            
+            // Simulate payment confirmation
+            setTimeout(() => {
+                document.getElementById('successModal').style.display = 'block';
+            }, 1000);
+        }
+
+        // Close Modal
+        function closeModal() {
+            document.getElementById('successModal').style.display = 'none';
+            document.getElementById('paymentSection').style.display = 'none';
+            document.getElementById('loginCard').style.display = 'block';
+        }
+
+        // Close modal when clicking outside
+        window.onclick = function(event) {
+            const modal = document.getElementById('successModal');
+            if (event.target === modal) {
+                closeModal();
+            }
+        }
+    </script>
+</body>
+</html>
